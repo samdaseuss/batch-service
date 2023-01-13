@@ -1,7 +1,9 @@
 package com.samdaseuss.api.introductiontospringbatch.job;
 
 import com.samdaseuss.api.introductiontospringbatch.core.domain.PlainText;
+import com.samdaseuss.api.introductiontospringbatch.core.domain.ResultText;
 import com.samdaseuss.api.introductiontospringbatch.core.repository.PlainTextRepository;
+import com.samdaseuss.api.introductiontospringbatch.core.repository.ResultTextRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -29,6 +31,7 @@ public class JobConfig {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final PlainTextRepository plainTextRepository;
+    private final ResultTextRepository resultTextRepository;
 
     @Bean("batchJob")
     public Job batchJob(Step batchStep) {
@@ -71,14 +74,14 @@ public class JobConfig {
     @StepScope
     @Bean
     public ItemProcessor<PlainText, String> plainTextProcessor() {
-        return item -> "processed" + item.getText();
+        return item -> "processed " + item.getText();
     }
 
     @StepScope
     @Bean
     public ItemWriter<String> plainTextWriter() {
         return items -> {
-            items.forEach(System.out::println);
+            items.forEach(item -> resultTextRepository.save(new ResultText(null, item)));
             System.out.println("=== chunk is finished");
         };
     }

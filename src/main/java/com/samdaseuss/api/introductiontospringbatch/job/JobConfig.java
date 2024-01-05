@@ -10,13 +10,11 @@ import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.data.RepositoryItemReader;
 import org.springframework.batch.item.data.builder.RepositoryItemReaderBuilder;
-import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Sort;
@@ -43,11 +41,17 @@ public class JobConfig {
 
     @JobScope
     @Bean("batchStep")
-    public Step batchStep(ItemReader batchReader) {
+    public Step batchStep(
+            ItemReader batchReader,
+            ItemProcessor plainTextProcessor,
+            ItemWriter plainTextWriter
+    ){
         return stepBuilderFactory
                 .get("batchStep")
                 .<PlainText, String>chunk(5)
                 .reader(batchReader)
+                .processor(plainTextProcessor)
+                .writer(plainTextWriter)
                 .build();
     }
 
@@ -64,16 +68,18 @@ public class JobConfig {
                 .build();
     }
 
+    @StepScope
+    @Bean
     public ItemProcessor<PlainText, String> plainTextProcessor() {
         return item -> "processed" + item.getText();
     }
 
+    @StepScope
+    @Bean
     public ItemWriter<String> plainTextWriter() {
-        return new ItemWriter<String>() {
-            @Override
-            public void write(List<? extends String> items) throws Exception {
-
-            }
+        return items -> {
+            items.forEach(System.out::println);
+            System.out.println("=== chunk is finished");
         };
     }
 }

@@ -11,7 +11,9 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.step.tasklet.Tasklet;
+import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.data.RepositoryItemReader;
 import org.springframework.batch.item.data.builder.RepositoryItemReaderBuilder;
 import org.springframework.batch.repeat.RepeatStatus;
@@ -60,5 +62,18 @@ public class JobConfig {
                 .arguments(List.of())
                 .sorts(Collections.singletonMap("id", Sort.Direction.DESC))
                 .build();
+    }
+
+    public ItemProcessor<PlainText, String> plainTextProcessor() {
+        return item -> "processed" + item.getText();
+    }
+
+    public ItemWriter<String> plainTextWriter() {
+        return new ItemWriter<String>() {
+            @Override
+            public void write(List<? extends String> items) throws Exception {
+
+            }
+        };
     }
 }

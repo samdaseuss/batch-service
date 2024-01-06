@@ -1,8 +1,8 @@
 # 배치 서비스
 스프링부트 프래임워크의 스프링 배치를 이용해 구현한 다양한 배치 서비스입니다.
 ## 배치 서비스 목차
-1. 기본 튜토리얼 - [테스클랫 기반 배치 서비스](https://github.com/samdaseuss/batch-service/tree/main)
-2. 기본 튜토리얼 - [청크 기반 배치 서비스]()
+1. 기본 튜토리얼 - [테스클랫 기반 배치 서비스](https://github.com/samdaseuss/batch-service/tree/tasklet)
+2. 기본 튜토리얼 - [청크 기반 배치 서비스](https://github.com/samdaseuss/batch-service/tree/chunk)
 ## 배치 서비스 실행 방법
 배치 서비스 실행 방법
 ### 1. 인텔리제이 실행

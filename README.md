@@ -46,3 +46,11 @@ java -jar ${빌드한파일}.jar --spring.batch.job.names=${잡이름}
 * Spring Boot 2.5.4
 * Gradle 8.5
 * Docker 23.0.6
+
+## 주요 코드 설명
+### domain/PlainText.java
+`@DynamicUpdate`
+* 다이나믹 업데이트 노어테이션
+* 엔티티에서 컬럼의 일부 값만 변경이 되었을 때는 그 값들에 대해서만 쿼리가 실행되도록 설정함
+* 관련 개념 : JPA
+

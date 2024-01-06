@@ -1,10 +1,24 @@
-# 배치 서비스
-스프링부트 프래임워크의 스프링 배치를 이용해 구현한 다양한 배치 서비스입니다.
-## 배치 서비스 목차
-1. 기본 튜토리얼 - [테스클랫 기반 배치 서비스](https://github.com/samdaseuss/batch-service/tree/main)
-2. 기본 튜토리얼 - [청크 기반 배치 서비스]()
-## 배치 서비스 실행 방법
-배치 서비스 실행 방법
+# 청크 기반 배치 서비스
+본 브랜치에는 청크 기반 배치 서비스를 구현되어 있습니다.
+
+## 청크 기반 배치 서비스 폴더 구조
+청크 기반 배치 서비스의 폴도 구조는 다음과 같습니다.
+```
+com.samdaseuss.api.introductiontosprignbatch
+ ﾤ 💾core
+    ﾤ 💾domain
+         ﾤ 📄PlainText.java
+    ﾤ 💾repository
+         ﾤ 📄PlainTextRepository.java
+ ﾤ 💾job
+    ﾤ 📄JobConfig
+ 📄Application
+```
+* domain : 엔티티를 선언하는 도메인 패키지
+* repository : 레포지토리를 선언하는 패키지
+
+## 청크 기반 배치 서비스 실행 방법
+청크 기반 배치 서비스는 크게 2가지 방법으로 실행이 가능합니다.
 ### 1. 인텔리제이 실행
 1. 실행 전 Program arguments에 만들어놓은 Job을 설정해줍니다.
 ```setup

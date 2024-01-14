@@ -12,6 +12,7 @@
 배치 서비스는 2가지 방법 중 1가지를 선택해 실행할 수 있습니다.
 #### 1. 인텔리제이 실행
 1. 실행 전 Program arguments에 만들어놓은 Job을 설정해줍니다.
+
 (1) batchJob 실행
 ```setup
 --spring.batch.job.names=batchJob

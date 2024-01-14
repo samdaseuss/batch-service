@@ -2,6 +2,9 @@ package com.samdaseuss.api.introductiontospringbatch.job;
 
 import com.samdaseuss.api.introductiontospringbatch.BatchTestConfig;
 import com.samdaseuss.api.introductiontospringbatch.core.domain.PlainText;
+import com.samdaseuss.api.introductiontospringbatch.core.repository.PlainTextRepository;
+import com.samdaseuss.api.introductiontospringbatch.core.repository.ResultTextRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,17 +25,39 @@ import java.util.stream.IntStream;
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
 @ContextConfiguration(classes = { JobConfig.class, BatchTestConfig.class})
-public class BatchJobConfigTest {
+public class PlainTextJobConfigTest {
     @Autowired
     private JobLauncherTestUtils jobLauncherTestUtils;
 
+    @Autowired
+    private PlainTextRepository plainTextRepository;
+
+    @Autowired
+    private ResultTextRepository resultTextRepository;
+
+    @AfterEach
+    public void tearDown() {
+        plainTextRepository.deleteAll();
+        resultTextRepository.deleteAll();
+    }
+
     @Test
-    public void success() throws Exception {
+    public void success_givenNoPlainText() throws Exception {
+        // given
+        // no plainText
+
         // when
         JobExecution execution = (JobExecution) jobLauncherTestUtils.launchJob();
 
         // then
         Assertions.assertEquals(execution.getExitStatus(), ExitStatus.COMPLETED);
+        Assertions.assertEquals(resultTextRepository.count(), 0);
     }
 
+    private void givenPlainTexts(Integer count) {
+        IntStream.range(0, count)
+                .forEach(
+                        num -> plainTextRepository.save(new PlainText(null, "text" + num))
+                );
+    }
 }

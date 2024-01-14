@@ -1,5 +1,6 @@
 package com.samdaseuss.api.introductiontospringbatch.job;
 
+import com.samdaseuss.api.introductiontospringbatch.job.validator.LocalDateParameterValidator;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -29,6 +30,7 @@ public class AdvancedJobConfig {
     public Job advancedJob(Step advancedStep) {
         return jobBuilderFactory.get("advancedJob")
                 .incrementer(new RunIdIncrementer())
+                .validator(new LocalDateParameterValidator("targetDate"))
                 .start(advancedStep)
                 .build();
     }

@@ -3,8 +3,8 @@
 ( 본 프로젝트 파일을 실행해보기 위해서는 몇 가지 설정이 필요합니다. 실행을 위해 [튜토리얼](#튜토리얼) 섹션을 먼저 진행해주세요. )
 
 ## 배치 서비스 목차
-1. 기본 - [테스클랫 기반 배치 서비스](https://github.com/samdaseuss/batch-service/tree/tasklet)
-2. 기본 - [청크 기반 배치 서비스](https://github.com/samdaseuss/batch-service/tree/chunk)
+1. [테스클랫 기반 배치 서비스](https://github.com/samdaseuss/batch-service/tree/tasklet)
+2. [청크 기반 배치 서비스](https://github.com/samdaseuss/batch-service/tree/chunk)
 
 ## 튜토리얼
 본 레포지토리의 배치 서비스들을 실행하기 위해 기본적으로 설정해야 하는 정보를 담고 있는 튜토리얼 입니다.
@@ -12,9 +12,15 @@
 배치 서비스는 2가지 방법 중 1가지를 선택해 실행할 수 있습니다.
 #### 1. 인텔리제이 실행
 1. 실행 전 Program arguments에 만들어놓은 Job을 설정해줍니다.
+(1) batchJob 실행
 ```setup
 --spring.batch.job.names=batchJob
 ```
+(2) advancedJob 실행
+```setup
+--spring.batch.job.names=advancedJob -targetDate=2024
+```
+
 2. 스프링부트 애플리케이션을 실행합니다. 
 3. batchJob 이라는 이름으로 SimpleJob 구현체가 생성되어 Job이 실행됩니다.
 

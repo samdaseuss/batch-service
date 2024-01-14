@@ -18,7 +18,7 @@
 ```
 (2) advancedJob 실행
 ```setup
---spring.batch.job.names=advancedJob -targetDate=2024
+--spring.batch.job.names=advancedJob -targetDate=2024-01-14
 ```
 
 2. 스프링부트 애플리케이션을 실행합니다. 
